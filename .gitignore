@@ -1,0 +1,4 @@
+.env
+db_password.txt
+__pycache__/
+*.pyc

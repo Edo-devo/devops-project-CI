@@ -1,0 +1,32 @@
+# stage 1 — builder
+FROM python:3.12 AS builder
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --user -r requirements.txt
+
+# stage 2 — runtime
+FROM python:3.12-slim
+
+RUN useradd -m appuser
+
+WORKDIR /app
+
+# копируем только зависимости
+COPY --from=builder /root/.local /root/.local
+
+# копируем приложение
+COPY app.py .
+
+# путь к пакетам
+ENV PATH=/root/.local/bin:$PATH
+
+# права
+RUN chown -R appuser:appuser /app
+
+USER appuser
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]

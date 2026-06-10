@@ -15,3 +15,14 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t devops-app ./api
+
+
+      - name: Run container
+        run: docker run -d -p 8000:8000 devops-app
+
+
+      - name: Wait for container
+        run: sleep 3
+
+      - name: Check API
+        run: curl http://localhost:8000

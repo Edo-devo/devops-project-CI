@@ -27,6 +27,8 @@ jobs:
       - name: Check API
         run: curl http://localhost:8000
 
+      - name: Create secret file
+        run: echo "testpassword" > db_password.txt
 
       - name: Run docker compose
         run: docker compose up -d

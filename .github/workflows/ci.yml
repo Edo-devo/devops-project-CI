@@ -43,7 +43,7 @@ jobs:
         run: docker ps -a
 
       - name: Debug nginx logs
-        run: docker logs devops-project-nginx-1
+        run: docker logs nginx
 
       - name: Check nginx
         run: curl http://localhost:8085

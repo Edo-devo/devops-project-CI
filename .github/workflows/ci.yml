@@ -27,6 +27,9 @@ jobs:
       - name: Check API
         run: curl http://localhost:8000
 
+      - name: Create env file
+        run: echo "API_PORT=8000" > .env
+
       - name: Create secret file
         run: echo "testpassword" > db_password.txt
 

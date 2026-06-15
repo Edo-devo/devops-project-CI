@@ -36,11 +36,11 @@ jobs:
       - name: Wait for services
         run: sleep 10
 
-      - name: Check nginx
-        run: curl http://localhost:8085
-
       - name: Debug containers
         run: docker ps -a
 
       - name: Debug nginx logs
         run: docker logs devops-project-nginx-1
+
+      - name: Check nginx
+        run: curl http://localhost:8085

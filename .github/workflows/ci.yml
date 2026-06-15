@@ -27,12 +27,23 @@ jobs:
       - name: Check API
         run: curl http://localhost:8000
 
+      - name: Create env file
+        run: echo "API_PORT=8000" > .env
+
+      - name: Create secret file
+        run: echo "testpassword" > db_password.txt
 
       - name: Run docker compose
         run: docker compose up -d
 
       - name: Wait for services
-        run: sleep 5
+        run: sleep 10
+
+      - name: Debug containers
+        run: docker ps -a
+
+      - name: Debug nginx logs
+        run: docker compose logs nginx
 
       - name: Check nginx
         run: curl http://localhost:8085

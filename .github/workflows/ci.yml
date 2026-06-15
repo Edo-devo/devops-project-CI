@@ -25,7 +25,15 @@ jobs:
         run: sleep 3
 
       - name: Check API
-        run: curl http://localhost:8000
+        run: |
+          for i in {1..5}; do
+            if curl -sf http://localhost:8000 > /dev/null; then
+              echo "API is up"
+              exit 0
+            fi
+            sleep 1
+          done
+          exit 1
 
       - name: Create env file
         run: echo "API_PORT=8000" > .env

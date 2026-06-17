@@ -35,6 +35,9 @@ jobs:
           done
           exit 1
 
+      - name: Show API health logs
+        run: docker compose logs api
+
       - name: Wait for API healthy
         run: |
           for i in {1..10}; do

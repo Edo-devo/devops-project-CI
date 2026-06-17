@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branch: ["main"]
+    branches: ["main"]
 
 jobs:
   build:
@@ -10,36 +10,26 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/Checkout@v4
+        uses: actions/checkout@v4
 
 
       - name: Build Docker image
         run: docker build -t devops-app ./api
-
-
-      - name: Run container
-        run: docker run -d -p 8000:8000 devops-app
-
-
-      - name: Wait for container
-        run: sleep 3
-
-      - name: Check API
-        run: |
-          for i in {1..5}; do
-            if curl -sf http://localhost:8000 > /dev/null; then
-              echo "API is up"
-              exit 0
-            fi
-            sleep 1
-          done
-          exit 1
 
       - name: Show API health logs
         run: docker compose logs api
 
       - name: Check API heath simple
         run: docker compose ps
+
+      - name: Create env file
+        run: echo "API_PORT=8000" > .env
+
+      - name: Create secret file
+        run: echo "testpassword" > db_password.txt
+
+      - name: Run docker compose
+        run: docker compose up -d
 
       - name: Wait for API healthy
         run: |
@@ -53,15 +43,6 @@ jobs:
           done
           echo "API not healthy"
           exit 1
-
-      - name: Create env file
-        run: echo "API_PORT=8000" > .env
-
-      - name: Create secret file
-        run: echo "testpassword" > db_password.txt
-
-      - name: Run docker compose
-        run: docker compose up -d
 
       - name: Wait for nginx
         run: |

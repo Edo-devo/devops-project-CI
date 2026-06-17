@@ -24,6 +24,12 @@ jobs:
       - name: Wait for container
         run: sleep 3
 
+      - name: Create env file
+        run: echo "API_PORT=8000" > .env
+
+      - name: Create secret file
+        run: echo "testpassword" > db_password.txt
+
       - name: Check API
         run: |
           for i in {1..5}; do
@@ -52,12 +58,6 @@ jobs:
           done
           echo "API not healthy"
           exit 1
-
-      - name: Create env file
-        run: echo "API_PORT=8000" > .env
-
-      - name: Create secret file
-        run: echo "testpassword" > db_password.txt
 
       - name: Run docker compose
         run: docker compose up -d

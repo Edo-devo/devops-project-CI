@@ -38,6 +38,9 @@ jobs:
       - name: Show API health logs
         run: docker compose logs api
 
+      - name: Check API heath simple
+        run: docker compose ps
+
       - name: Wait for API healthy
         run: |
           for i in {1..10}; do

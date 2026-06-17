@@ -35,6 +35,18 @@ jobs:
           done
           exit 1
 
+      - name: Wait for API healthy
+        run: |
+          for i in {1..10}; do
+            if docker inspect --format='{{.State.Health.Status}}' devops-project-ci-api-1 | grep -q healthy; then
+              echo "API is healthy"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "API not healthy"
+          exit 1
+
       - name: Create env file
         run: echo "API_PORT=8000" > .env
 

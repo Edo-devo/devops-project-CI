@@ -20,6 +20,12 @@ jobs:
       - name: Build Docker image
         run: docker build -t devops-app ./api
 
+      - name: Create env file
+        run: echo "API_PORT=${API_PORT}" > .env
+
+      - name: Create secret file
+        run: echo "${BD_PASSWORD}" > db_password.txt
+
       - name: Show API health logs
         run: docker compose logs api
 

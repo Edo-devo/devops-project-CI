@@ -11,8 +11,9 @@ services:
       timeout: 2s
       retries: 10
       start_period: 10s
-    secrets:
-      - db_password
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+
 
   nginx:
     image: nginx:latest
@@ -23,7 +24,3 @@ services:
     environment:
       - API_PORT=${API_PORT}
     restart: always
-
-secrets:
-  db_password:
-    file: ./db_password.txt

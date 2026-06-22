@@ -65,11 +65,11 @@ jobs:
         run: curl http://localhost:8085
 
       - name: Deploy to server
-        run:
+        run: |
           mkdir -p ~/.ssh
+
           echo "${{secrets.SSH_KEY}}" > /.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-
 
           ssh -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} << 'EOF'
             cd ~/devops-project

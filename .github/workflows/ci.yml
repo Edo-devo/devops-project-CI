@@ -74,6 +74,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} << 'EOF'
             cd ~/devops-project-CI
             git pull
-            docker compose down
-            docker compose up -d --build
+            docker-compose down
+            docker-compose up -d --build
           EOF

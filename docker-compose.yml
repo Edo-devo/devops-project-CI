@@ -1,8 +1,26 @@
-version: "3.9"
+version:
 
 services:
-  api:
+  api_v1:
     build: ./api
+    ports:
+      - "8001:8000"
+    command: python -m http.server 8000
+    restart: always
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; r=urllib.request.urlopen('http://localhost:8000'); exit(0 if r.status==200 else 1)"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+      start_period: 10s
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+
+
+  api_v2:
+    build: ./api
+    ports:
+      - "8002:8000"
     command: python -m http.server 8000
     restart: always
     healthcheck:

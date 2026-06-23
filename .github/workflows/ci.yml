@@ -16,12 +16,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-
       - name: Build Docker image
         run: docker build -t devops-app ./api
-
-      - name: Check API heath simple
-        run: docker compose ps
 
       - name: Run docker compose
         run: docker compose up -d

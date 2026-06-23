@@ -1,5 +1,3 @@
-version:
-
 services:
   api_v1:
     build: ./api

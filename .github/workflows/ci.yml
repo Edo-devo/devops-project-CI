@@ -20,8 +20,8 @@ jobs:
       - name: Build Docker image
         run: docker build -t devops-app ./api
 
-      - name: Show API health logs
-        run: docker compose logs api
+      - name: Show API logs
+        run: docker compose logs
 
       - name: Check API heath simple
         run: docker compose ps

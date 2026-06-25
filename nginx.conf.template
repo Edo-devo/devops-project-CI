@@ -1,6 +1,6 @@
 upstream backend {
     server api_v1:8000;
-    # server api_v2:8000;
+    server api_v2:8000;
 }
 
 server {
